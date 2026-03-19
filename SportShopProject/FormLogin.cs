@@ -45,7 +45,10 @@ namespace SportShopProject
 
         private void ButtonLoginGuest_Click(object sender, EventArgs e)
         {
-
+            CurrentUser = null;
+            IsGuest = true;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }
