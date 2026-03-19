@@ -36,4 +36,5 @@ public partial class SportsGood
     public virtual UnitsOfMeasurement UnitsOfMeasurement { get; set; } = null!;
 
     public virtual ICollection<OrdersStortGood> OrdersStortGoods { get; set; } = new List<OrdersStortGood>();
+    public string PhotoUrl { get; internal set; }
 }
