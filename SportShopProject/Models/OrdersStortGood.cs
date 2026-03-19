@@ -13,7 +13,7 @@ public partial class OrdersStortGood
 
     public int Quantity { get; set; }
 
-    public virtual Order IdOrderNavigation { get; set; } = null!;
+    public virtual Order Order { get; set; } = null!;
 
-    public virtual SportsGood IdSportGoodNavigation { get; set; } = null!;
+    public virtual SportsGood SportsGood { get; set; } = null!;
 }

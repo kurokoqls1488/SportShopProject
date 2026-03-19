@@ -91,15 +91,15 @@ public partial class SportShopDbContext : DbContext
             entity.Property(e => e.IdUser).HasColumnName("id_user");
             entity.Property(e => e.OrderDate).HasColumnName("order_date");
 
-            entity.HasOne(d => d.IdDeliveryPointNavigation).WithMany(p => p.Orders)
+            entity.HasOne(d => d.DeliveryPoint).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.IdDeliveryPoint)
                 .HasConstraintName("orders_id_delivery_point_fkey");
 
-            entity.HasOne(d => d.IdStatusNavigation).WithMany(p => p.Orders)
+            entity.HasOne(d => d.Status).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.IdStatus)
                 .HasConstraintName("orders_id_status_fkey");
 
-            entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Orders)
+            entity.HasOne(d => d.User).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.IdUser)
                 .HasConstraintName("orders_id_user_fkey");
         });
@@ -115,11 +115,11 @@ public partial class SportShopDbContext : DbContext
             entity.Property(e => e.IdSportGood).HasColumnName("id_sport_good");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
 
-            entity.HasOne(d => d.IdOrderNavigation).WithMany(p => p.OrdersStortGoods)
+            entity.HasOne(d => d.Order).WithMany(p => p.OrdersStortGoods)
                 .HasForeignKey(d => d.IdOrder)
                 .HasConstraintName("orders_stort_goods_id_order_fkey");
 
-            entity.HasOne(d => d.IdSportGoodNavigation).WithMany(p => p.OrdersStortGoods)
+            entity.HasOne(d => d.SportsGood).WithMany(p => p.OrdersStortGoods)
                 .HasForeignKey(d => d.IdSportGood)
                 .HasConstraintName("orders_stort_goods_id_sport_good_fkey");
         });
@@ -154,19 +154,19 @@ public partial class SportShopDbContext : DbContext
                 .HasColumnType("money")
                 .HasColumnName("price");
 
-            entity.HasOne(d => d.IdCategoryNavigation).WithMany(p => p.SportsGoods)
+            entity.HasOne(d => d.Category).WithMany(p => p.SportsGoods)
                 .HasForeignKey(d => d.IdCategory)
                 .HasConstraintName("sports_goods_id_category_fkey");
 
-            entity.HasOne(d => d.IdManufacturerNavigation).WithMany(p => p.SportsGoods)
+            entity.HasOne(d => d.Manufacturer).WithMany(p => p.SportsGoods)
                 .HasForeignKey(d => d.IdManufacturer)
                 .HasConstraintName("sports_goods_id_manufacturer_fkey");
 
-            entity.HasOne(d => d.IdSupplierNavigation).WithMany(p => p.SportsGoods)
+            entity.HasOne(d => d.Supplier).WithMany(p => p.SportsGoods)
                 .HasForeignKey(d => d.IdSupplier)
                 .HasConstraintName("sports_goods_id_supplier_fkey");
 
-            entity.HasOne(d => d.IdUnitsOfMeasurementNavigation).WithMany(p => p.SportsGoods)
+            entity.HasOne(d => d.UnitsOfMeasurement).WithMany(p => p.SportsGoods)
                 .HasForeignKey(d => d.IdUnitsOfMeasurement)
                 .HasConstraintName("sports_goods_id_units_of_measurement_fkey");
         });
@@ -215,7 +215,7 @@ public partial class SportShopDbContext : DbContext
             entity.Property(e => e.MiddleName).HasColumnName("middle_name");
             entity.Property(e => e.Password).HasColumnName("password");
 
-            entity.HasOne(d => d.IdRoleNavigation).WithMany(p => p.Users)
+            entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.IdRole)
                 .HasConstraintName("users_id_role_fkey");
         });
