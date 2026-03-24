@@ -12,11 +12,11 @@ namespace SportShopProject
         {
             InitializeComponent();
 
-            var colPhoto = new DataGridViewImageColumn();
+            /*var colPhoto = new DataGridViewImageColumn();
             colPhoto.Name = "colPhoto";
             colPhoto.ImageLayout = DataGridViewImageCellLayout.Zoom;
             colPhoto.Width = 250;
-            colPhoto.FillWeight = 40;
+            colPhoto.FillWeight = 40;*/
 
             var colInfo = new DataGridViewTextBoxColumn();
             colInfo.Name = "colInfo";
@@ -30,7 +30,7 @@ namespace SportShopProject
 
             dataGridViewSportGoods.Columns.AddRange(
             [
-                colPhoto, colInfo, colDiscount
+                /*colPhoto, */colInfo, colDiscount
             ]);
 
             CurrentUser = user;
@@ -62,9 +62,14 @@ namespace SportShopProject
                         int rowIndex = dataGridViewSportGoods.Rows.Add();
                         var row = dataGridViewSportGoods.Rows[rowIndex];
 
-                        row.Cells["colPhoto"].Value = LoadSportGoodsImage(sportGood.PhotoUrl);
+                        //row.Cells["colPhoto"].Value = Resources.picture;
 
                         row.Cells["colInfo"].Value = FormatProductInfo(sportGood);
+
+                        row.Cells["colDiscount"].Value = $"{sportGood.Discount}%";
+                        row.Cells["colDiscount"].Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                        ApplyRowStyles(row, sportGood);
                     }
                 }
             }
@@ -75,6 +80,32 @@ namespace SportShopProject
             }
         }
 
+        private void ApplyRowStyles(DataGridViewRow row, SportsGood sportGood)
+        {
+            if (sportGood.Discount > 15)
+            {
+                row.DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#2E8B57");
+                row.DefaultCellStyle.ForeColor = Color.White;
+            }
+            if (sportGood.CountInStock <= 0)
+            {
+                row.DefaultCellStyle.BackColor = Color.LightBlue;
+                if (sportGood.CountInStock <= 15)
+                {
+                    row.DefaultCellStyle.ForeColor = Color.Black;
+                }
+            }
+
+            if (sportGood.Discount > 0)
+            {
+                row.Cells["colDiscount"].Style.ForeColor = Color.Red;
+                row.Cells["colDiscount"].Style.Font = new Font(
+                    "Times New Roman",
+                    12,
+                    FontStyle.Bold);
+            }
+        }
+
         private string FormatProductInfo(SportsGood sportGood)
         {
             string priceText;
@@ -82,7 +113,7 @@ namespace SportShopProject
             if (sportGood.Discount > 0)
             {
                 decimal finalPrice = sportGood.Price * (100 - sportGood.Discount) / 100;
-                priceText = $"Цена: {sportGood.Price:C} -> Insert { finalPrice:C}";
+                priceText = $"Цена: {sportGood.Price:C} -> Insert {finalPrice:C}";
             }
             else
             {
@@ -97,14 +128,20 @@ namespace SportShopProject
                 $"Количество на складе: {sportGood.CountInStock}";
         }
 
-        private Image LoadSportGoodsImage(string photoUrl)
+       /* private Image LoadSportGoodsImage(string photoUrl)
         {
-            if(!String.IsNullOrEmpty(photoUrl) && System.IO.File.Exists(photoUrl))
+            if (!String.IsNullOrEmpty(photoUrl) && System.IO.File.Exists(photoUrl))
             {
                 return Image.FromFile(photoUrl);
             }
 
             return Resources.picture;
+        }*/
+
+        private void ButtonExit_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

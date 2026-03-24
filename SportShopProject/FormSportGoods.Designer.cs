@@ -69,6 +69,7 @@
             buttonExit.TabIndex = 0;
             buttonExit.Text = "Выход";
             buttonExit.UseVisualStyleBackColor = false;
+            buttonExit.Click += ButtonExit_Click;
             // 
             // dataGridViewSportGoods
             // 
